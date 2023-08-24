@@ -1,7 +1,8 @@
 import os
 import json
 
-
+from dulwich.objects import cls
+from googleapiclient.channel import Channel
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 
@@ -12,9 +13,9 @@ class Channel:
     """Класс для ютуб-канала"""
     load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
     # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
-    channel.api_key: str = os.getenv('YT_API_KEY')
+    api_key: str = os.getenv('YT_API_KEY')
     # специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=channel.api_key)
+    youtube = build('youtube', 'v3', developerKey=Channel.api_key)
 
 
 
