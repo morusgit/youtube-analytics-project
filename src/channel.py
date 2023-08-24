@@ -1,14 +1,22 @@
-
 import os
 import json
+
+
 from googleapiclient.discovery import build
+from dotenv import load_dotenv
+
+from helper.youtube_api_manual import channel
+
 
 class Channel:
     """Класс для ютуб-канала"""
+    load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
     # YT_API_KEY скопирован из гугла и вставлен в переменные окружения
-    api_key: str = os.getenv('YT_API_KEY')
+    channel.api_key: str = os.getenv('YT_API_KEY')
     # специальный объект для работы с API
-    youtube = build('youtube', 'v3', developerKey=api_key)
+    youtube = build('youtube', 'v3', developerKey=channel.api_key)
+
+
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
