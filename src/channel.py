@@ -2,15 +2,13 @@ import os
 import json
 
 from googleapiclient.discovery import build
-from dotenv import load_dotenv
-
-# print(os.getenv('YT_API_KEY'))
+#from dotenv import load_dotenv
+#print(os.getenv('YT_API_KEY'))
 class Channel:
     """Класс для ютуб-канала"""
     api_key: str = os.getenv('YT_API_KEY')
     # специальный объект для работы с API
     # youtube = build('youtube', 'v3', developerKey=api_key)
-
 
     @classmethod
     def get_service(cls):
@@ -37,6 +35,37 @@ class Channel:
     def channel_id(self):
         return self.__channel_id
 
+    def __str__(self) -> str:
+        """Строковое представление экземпляра класса"""
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other) -> int:
+        """Сумма числа подписчиков нескольких каналов"""
+        return self.subscribers + other.subscribers
+
+    def __sub__(self, other) -> int:
+        """Разница числа подписчиков нескольких каналов"""
+        return self.subscribers - other.subscribers
+
+    def __gt__(self, other) -> bool:
+        """Сравнение (больше) числа подписчиков нескольких каналов"""
+        return self.subscribers > other.subscribers
+
+    def __ge__(self, other) -> bool:
+        """Сравнение (больше либо равно) числа подписчиков нескольких каналов"""
+        return self.subscribers >= other.subscribers
+
+    def __lt__(self, other) -> bool:
+        """Сравнение (меньше) числа подписчиков нескольких каналов"""
+        return self.subscribers < other.subscribers
+
+    def __le__(self, other) -> bool:
+        """Сравнение (меньше либо равно) числа подписчиков нескольких каналов"""
+        return self.subscribers <= other.subscribers
+
+    def __eq__(self, other) -> bool:
+        """Проверка равенства числа подписчиков нескольких каналов"""
+        return self.subscribers == other.subscribers
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         print(json.dumps(self.channel_dict, indent=2, ensure_ascii=False))
